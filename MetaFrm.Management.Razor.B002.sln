@@ -1,0 +1,60 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.32804.182
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetaFrm.Management.Razor.B002(net6.0)", "MetaFrm.Management.Razor.B002(net6.0)\MetaFrm.Management.Razor.B002(net6.0).csproj", "{9E6E30A6-78F9-4275-8605-31505DC58EBC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "솔루션 항목", "솔루션 항목", "{842D310B-8F00-49CB-869F-EB3CADA984D2}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+		LICENSE.txt = LICENSE.txt
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{866A1AAD-DCA0-4239-8881-7CEFC1E8083F}"
+	ProjectSection(SolutionItems) = preProject
+		src\B002.razor.cs = src\B002.razor.cs
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Models", "Models", "{7379E315-1C18-470B-9B24-A19E43FE5B6E}"
+	ProjectSection(SolutionItems) = preProject
+		src\Models\PermissionsModel.cs = src\Models\PermissionsModel.cs
+		src\Models\SearchModel.cs = src\Models\SearchModel.cs
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ViewModels", "ViewModels", "{97219B96-418A-4F51-B649-A4BD974154A0}"
+	ProjectSection(SolutionItems) = preProject
+		src\ViewModels\B002ViewModel.cs = src\ViewModels\B002ViewModel.cs
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{ED7886FF-014D-4AC6-9A9E-3FC870234095}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{E3FD385B-FA1A-43BD-95CF-25AFCC172112}"
+	ProjectSection(SolutionItems) = preProject
+		.github\workflows\build.yml = .github\workflows\build.yml
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9E6E30A6-78F9-4275-8605-31505DC58EBC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9E6E30A6-78F9-4275-8605-31505DC58EBC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9E6E30A6-78F9-4275-8605-31505DC58EBC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9E6E30A6-78F9-4275-8605-31505DC58EBC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{7379E315-1C18-470B-9B24-A19E43FE5B6E} = {866A1AAD-DCA0-4239-8881-7CEFC1E8083F}
+		{97219B96-418A-4F51-B649-A4BD974154A0} = {866A1AAD-DCA0-4239-8881-7CEFC1E8083F}
+		{E3FD385B-FA1A-43BD-95CF-25AFCC172112} = {ED7886FF-014D-4AC6-9A9E-3FC870234095}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9484A727-4E1B-4C71-BD3C-A899F1A73477}
+	EndGlobalSection
+EndGlobal
