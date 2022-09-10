@@ -10,56 +10,48 @@
 @using Microsoft.AspNetCore.Components.Web
 @inherits BaseComponent
 
-<div>
-    <TitleControl Title="@this.GetAttribute("Description")"></TitleControl>
+<TitleControl Title="@this.GetAttribute("Description")"></TitleControl>
 
-    @if (this.GroupWindowStatus == GroupWindowStatus.Close)
-    {
-        <DataGridControl TItem="PermissionsModel" @ref="this.DataGridControl" Columns="this.ColumnDefinitions" DataItems="this.B002ViewModel.SelectResultModel" PagingEnabled="true"
-                     TableClass="table-hover"
-                     RowAdd="this.New"
-                     MovePage="this.Search"
-                     RowModify="this.RowModify">
-            <SearchInputControl>
-                <input type="text" class="form-control rounded-start" placeholder="Search" @bind-value="@this.B002ViewModel.SearchModel.SEARCH_TEXT" @onkeyup="@SearchKeydown" />
-            </SearchInputControl>
-            <SearchButtonControl>
-                <button class="btn btn-outline-primary btn-rounded-end" type="button" @onclick="(() => this.OnSearch())">
-                    <span class="oi oi-magnifying-glass" />
-                </button>
-            </SearchButtonControl>
-        </DataGridControl>
-    }
-    else
-    {
-        <GroupControl TItem="PermissionsModel" SelectItem="this.SelectItem" SelectItemKeyProperty="@(nameof(this.SelectItem.RESPONSIBILITY_ID))"
-                  Close="this.Close" GroupWindowStatus="this.GroupWindowStatus">
-            <Control>
-                <EditForm class="container" Model="@this.SelectItem" OnValidSubmit="this.Save">
-                    <DataAnnotationsValidator />
+<DataGridControl TItem="PermissionsModel" @ref="this.DataGridControl" Columns="this.ColumnDefinitions" DataItems="this.B002ViewModel.SelectResultModel" PagingEnabled="true"
+                 TableClass="table-hover"
+                 RowAdd="this.New"
+                 MovePage="this.Search"
+                 RowModify="this.RowModify">
+    <SearchInputControl>
+        <input type="text" class="form-control rounded-start" placeholder="Search" @bind-value="@this.B002ViewModel.SearchModel.SEARCH_TEXT" @onkeyup="@SearchKeydown" />
+    </SearchInputControl>
+    <SearchButtonControl>
+        <button class="btn btn-outline-primary btn-rounded-end" type="button" @onclick="(() => this.OnSearch())">
+            <span class="oi oi-magnifying-glass" />
+        </button>
+    </SearchButtonControl>
+</DataGridControl>
 
-                    <FieldControl Label="Permissions ID" Value="this.SelectItem.RESPONSIBILITY_ID" CssClassDiv="pt-2 pb-1"></FieldControl>
-                    <FieldControl Label="Permissions name">
-                        <Control>
-                            <InputText id="permissionsname" class="form-control" placeholder="Permissions name" @bind-Value="this.SelectItem.NAME" />
-                            <ValidationMessage For="@(()=>this.SelectItem.NAME)" />
-                        </Control>
-                    </FieldControl>
-                    <FieldControl Label="Inactive" CssClassControl="row">
-                        <Control>
-                            <div class="py-1 col-md-3">
-                                <InputDate id="inactivedate" class="form-control" placeholder="Inactive Date" Type="InputDateType.Date" @bind-Value="this.SelectItem.INACTIVE_DATE" @bind-Value:format="yyyy-MM-dd" />
-                            </div>
-                            <div class="py-1 col-md-3">
-                                <InputDate id="inactivetime" class="form-control" placeholder="Inactive Time" Type="InputDateType.Time" @bind-Value="this.SelectItem.INACTIVE_DATE" @bind-Value:format="HH:mm" />
-                            </div>
-                            <ValidationMessage For="@(()=>this.SelectItem.INACTIVE_DATE)" />
-                        </Control>
-                    </FieldControl>
+<ModalControl TItem="PermissionsModel" SelectItem="this.SelectItem" SelectItemKeyProperty="@(nameof(this.SelectItem.RESPONSIBILITY_ID))">
+    <Control>
+        <EditForm class="container" Model="@this.SelectItem" OnValidSubmit="this.Save">
+            <DataAnnotationsValidator />
 
-                    <CommandControl TItem="PermissionsModel" SelectItem="this.SelectItem" SelectItemKeyProperty="@(nameof(this.SelectItem.RESPONSIBILITY_ID))" SaveIsSubmit="true" New="this.New" Copy="this.Copy" Delete="this.Delete" />
-                </EditForm>
-            </Control>
-        </GroupControl>
-    }
-</div>
+            <FieldControl Label="Permissions ID" Value="this.SelectItem.RESPONSIBILITY_ID" CssClassDiv="pt-2 pb-1"></FieldControl>
+            <FieldControl Label="Permissions name">
+                <Control>
+                    <InputText id="permissionsname" class="form-control" placeholder="Permissions name" @bind-Value="this.SelectItem.NAME" />
+                    <ValidationMessage For="@(()=>this.SelectItem.NAME)" />
+                </Control>
+            </FieldControl>
+            <FieldControl Label="Inactive" CssClassControl="row">
+                <Control>
+                    <div class="py-1 col-md-3">
+                        <InputDate id="inactivedate" class="form-control" placeholder="Inactive Date" Type="InputDateType.Date" @bind-Value="this.SelectItem.INACTIVE_DATE" @bind-Value:format="yyyy-MM-dd" />
+                    </div>
+                    <div class="py-1 col-md-3">
+                        <InputDate id="inactivetime" class="form-control" placeholder="Inactive Time" Type="InputDateType.Time" @bind-Value="this.SelectItem.INACTIVE_DATE" @bind-Value:format="HH:mm" />
+                    </div>
+                    <ValidationMessage For="@(()=>this.SelectItem.INACTIVE_DATE)" />
+                </Control>
+            </FieldControl>
+
+            <CommandControl TItem="PermissionsModel" SelectItem="this.SelectItem" SelectItemKeyProperty="@(nameof(this.SelectItem.RESPONSIBILITY_ID))" SaveIsSubmit="true" New="this.New" Copy="this.Copy" Delete="this.Delete" />
+        </EditForm>
+    </Control>
+</ModalControl>
