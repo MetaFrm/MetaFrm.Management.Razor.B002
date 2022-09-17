@@ -1,4 +1,5 @@
 ﻿@using MetaFrm.Control
+@using MetaFrm.Database
 @using MetaFrm.Management.Razor.Models
 @using MetaFrm.Razor.Command
 @using MetaFrm.Razor.DataGrid
@@ -12,11 +13,15 @@
 
 <TitleControl Title="@this.GetAttribute("Description")"></TitleControl>
 
-<DataGridControl TItem="PermissionsModel" @ref="this.DataGridControl" Columns="this.ColumnDefinitions" DataItems="this.B002ViewModel.SelectResultModel" PagingEnabled="true"
+<DataGridControl TItem="PermissionsModel" @ref="this.DataGridControl" DataItems="this.B002ViewModel.SelectResultModel" PagingEnabled="true"
                  TableClass="table-hover"
                  RowAdd="this.New"
                  MovePage="this.Search"
-                 RowModify="this.RowModify">
+                 RowModify="this.RowModify"
+                 Columns="@(new ColumnDefinitions[] {
+                    new(DbType.Int, SortDirection.Normal, Alignment.Right, nameof(PermissionsModel.RESPONSIBILITY_ID), "Permissions ID", "d-none d-sm-table-cell"),
+                    new(DbType.NVarChar, SortDirection.Ascending, Alignment.NotSet, nameof(PermissionsModel.NAME), "Permissions"),
+                    new(DbType.DateTime, SortDirection.Normal, Alignment.Center, nameof(PermissionsModel.INACTIVE_DATE), "Inactive", "", "", "", "yyyy-MM-dd HH:mm")})">
     <SearchInputControl>
         <input type="text" class="form-control rounded-start" placeholder="Search" @bind-value="@this.B002ViewModel.SearchModel.SEARCH_TEXT" @onkeyup="@SearchKeydown" />
     </SearchInputControl>
