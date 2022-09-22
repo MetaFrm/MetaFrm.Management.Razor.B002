@@ -8,7 +8,7 @@
     <AssemblyName>MetaFrm.Management.Razor.B002</AssemblyName>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
     <PackageId>MetaFrm.Management.Razor.B002.net6.0</PackageId>
-    <Version>6.0.0.9</Version>
+    <Version>6.0.0.10</Version>
     <Authors>dsun</Authors>
     <Company>Meta Framework</Company>
     <Copyright>Copyright 2022. dsun all rights reserved.</Copyright>
@@ -47,7 +47,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="MetaFrm.Razor.Essentials.net6.0" Version="6.0.0.17" />
+    <PackageReference Include="MetaFrm.Razor.Essentials.net6.0" Version="6.0.0.18" />
     <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.9" />
   </ItemGroup>
 
