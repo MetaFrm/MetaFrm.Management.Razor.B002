@@ -11,7 +11,7 @@
     <Version>6.0.0.12</Version>
     <Authors>dsun</Authors>
     <Company>Meta Framework</Company>
-    <Copyright>Copyright 2022. dsun all rights reserved.</Copyright>
+    <Copyright>Copyright 2023. dsun all rights reserved.</Copyright>
     <PackageProjectUrl>https://github.com/MetaFrm/MetaFrm.Management.Razor.B002</PackageProjectUrl>
     <RepositoryUrl>https://github.com/MetaFrm/MetaFrm.Management.Razor.B002</RepositoryUrl>
     <PackageTags>meta;framework;dotnet;maui;</PackageTags>
@@ -47,8 +47,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="MetaFrm.Razor.Essentials.net6.0" Version="6.0.0.20" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.9" />
+    <PackageReference Include="MetaFrm.Razor.Essentials.net6.0" Version="6.0.0.25" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.16" />
   </ItemGroup>
 
   <ItemGroup>
