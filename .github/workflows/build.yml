@@ -11,11 +11,12 @@ jobs:
 
     runs-on: ubuntu-latest
     env:
-      METAFRM_UPLOADMODULE_URL: "https://download.metafrm.net/github/MetaFrmManagementUploader.zip"
-      METAFRM_UPLOADMODULE_ZIP: "MetaFrmManagementUploader.zip"
-      METAFRM_UPLOADMODULE_FILE: "MetaFrmManagementUploader.dll"
       DLL_ID: 13
       DLL_PATH: "MetaFrm.Management.Razor.B002(net6.0)/bin/Release/net6.0/MetaFrm.Management.Razor.B002.dll"
+      UPLOAD_MODURE: "Y"
+      METAFRM_UPLOADMODULE_URL: "https://download.metafrm.net/github/MetaFrmManagementUploader.zip"
+      METAFRM_UPLOADMODULE_ZIP: "temp/MetaFrmManagementUploader.zip"
+      METAFRM_UPLOADMODULE_FILE: "temp/MetaFrmManagementUploader.dll"
 
     steps:
     - uses: actions/checkout@v3
@@ -25,33 +26,81 @@ jobs:
       with:
         dotnet-version: 6.0.x
         
-    - name: Restore dependencies
-      run: dotnet restore
+    - name: Install MAUI Workload (Windows)
+      if: runner.os == 'Windows'
+      run: dotnet workload install maui --ignore-failed-sources
       
-    - name: Build Debug
-      run: dotnet build -c Debug --no-restore
-      
-    - name: Test Debug
-      run: dotnet test -c Debug --no-build --verbosity normal
-
-    - name: Build Release
-      run: dotnet build -c Release --no-restore
-      
-    - name: Test Release
-      run: dotnet test -c Release --no-build --verbosity normal
-
-
-    - name: mkdir temp
+    - name: mkdir temp (Windows)
+      if: runner.os == 'Windows'
       run: mkdir temp
 
-    - name: cd temp
-      run: cd temp
 
-    - name: download
-      run: wget -d "${{env.METAFRM_UPLOADMODULE_URL}}"
+    - name: Download Upload Module
+      if: runner.os != 'Windows'
+      run: wget -d "${{env.METAFRM_UPLOADMODULE_URL}}" -P temp
 
-    - name: unzip
-      run: unzip "${{env.METAFRM_UPLOADMODULE_ZIP}}"
+    - name: Download Upload Module (Windows)
+      if: runner.os == 'Windows'
+      run: curl ${{env.METAFRM_UPLOADMODULE_URL}} --output "${{env.METAFRM_UPLOADMODULE_ZIP}}"
       
+    - name: Download unzip.exe (Windows)
+      if: runner.os == 'Windows'
+      run: curl http://stahlworks.com/dev/unzip.exe --output temp/unzip.exe
+
+    - name: Unzip
+      if: runner.os != 'Windows'
+      run: unzip "${{env.METAFRM_UPLOADMODULE_ZIP}}" -d temp
+      
+    - name: Unzip (Windows)
+      if: runner.os == 'Windows'
+      run: temp\unzip.exe "${{env.METAFRM_UPLOADMODULE_ZIP}}" -d temp
+
+
+    - name: Restore dependencies
+      id: ST1
+      run: dotnet restore
+    - name: if failure
+      if: ${{ failure()}}
+      run: dotnet "${{env.METAFRM_UPLOADMODULE_FILE}}" "${{secrets.METAFRM_UPLOADER_KEY}}" "${{github.event.pusher.email}}" "notification" "Restore dependencies Fail !!" "${{env.DLL_PATH}}"
+
+
+    - name: Build Debug
+      id: ST2
+      run: dotnet build -c Debug --no-restore
+    - name: if failure
+      if: ${{ failure() && steps.ST1.outcome != 'failure' }}
+      run: dotnet "${{env.METAFRM_UPLOADMODULE_FILE}}" "${{secrets.METAFRM_UPLOADER_KEY}}" "${{github.event.pusher.email}}" "notification" "Build Debug Fail !!" "${{env.DLL_PATH}}"
+
+    - name: Test Debug
+      id: ST3
+      run: dotnet test -c Debug --no-build --verbosity normal
+    - name: if failure
+      if: ${{ failure() && steps.ST1.outcome != 'failure' && steps.ST2.outcome != 'failure' }}
+      run: dotnet "${{env.METAFRM_UPLOADMODULE_FILE}}" "${{secrets.METAFRM_UPLOADER_KEY}}" "${{github.event.pusher.email}}" "notification" "Test Debug Fail !!" "${{env.DLL_PATH}}"
+
+    - name: Build Release
+      id: ST4
+      run: dotnet build -c Release --no-restore
+    - name: if failure
+      if: ${{ failure() && steps.ST1.outcome != 'failure' && steps.ST2.outcome != 'failure' && steps.ST3.outcome != 'failure' }}
+      run: dotnet "${{env.METAFRM_UPLOADMODULE_FILE}}" "${{secrets.METAFRM_UPLOADER_KEY}}" "${{github.event.pusher.email}}" "notification" "Build Release Fail !!" "${{env.DLL_PATH}}"
+      
+    - name: Test Release
+      id: ST5
+      run: dotnet test -c Release --no-build --verbosity normal
+    - name: if failure
+      if: ${{ failure() && steps.ST1.outcome != 'failure' && steps.ST2.outcome != 'failure' && steps.ST3.outcome != 'failure' && steps.ST4.outcome != 'failure' }}
+      run: dotnet "${{env.METAFRM_UPLOADMODULE_FILE}}" "${{secrets.METAFRM_UPLOADER_KEY}}" "${{github.event.pusher.email}}" "notification" "Test Release Fail !!" "${{env.DLL_PATH}}"
+      
+
     - name: Upload Module
-      run: dotnet "${{env.METAFRM_UPLOADMODULE_FILE}}" "${{secrets.METAFRM_UPLOADER_KEY}}" ${{env.DLL_ID}} "${{env.DLL_PATH}}" "${{github.event.pusher.email}}"
+      id: ST6
+      if: env.UPLOAD_MODURE == 'Y'
+      run: dotnet "${{env.METAFRM_UPLOADMODULE_FILE}}" "${{secrets.METAFRM_UPLOADER_KEY}}" "${{github.event.pusher.email}}" "upload" ${{env.DLL_ID}} "${{env.DLL_PATH}}"
+    - name: if failure
+      if: ${{ failure() && steps.ST1.outcome != 'failure' && steps.ST2.outcome != 'failure' && steps.ST3.outcome != 'failure' && steps.ST4.outcome != 'failure' && steps.ST5.outcome != 'failure' }}
+      run: dotnet "${{env.METAFRM_UPLOADMODULE_FILE}}" "${{secrets.METAFRM_UPLOADER_KEY}}" "${{github.event.pusher.email}}" "notification" "Upload Module Fail !!" "${{env.DLL_PATH}}"
+
+      
+    - name: Completed
+      run: dotnet "${{env.METAFRM_UPLOADMODULE_FILE}}" "${{secrets.METAFRM_UPLOADER_KEY}}" "${{github.event.pusher.email}}" "notification" "CI/CD Completed !!" "${{env.DLL_PATH}}"
