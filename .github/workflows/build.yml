@@ -6,7 +6,7 @@ on:
   pull_request:
     branches: [ "master" ]
 env:
-  DLL_ID: 13
+  DLL_ID: ${{secrets.DLL_ID}}
   UPLOAD_MODURE: "Y"
 
 jobs:
