@@ -20,7 +20,7 @@
         <input type="text" class="form-control rounded-start" placeholder="Search" @bind-value="@this.B002ViewModel.SearchModel.SEARCH_TEXT" @onkeyup="@SearchKeydown" />
     </SearchInputControl>
     <SearchButtonControl>
-        <button class="btn btn-outline-primary btn-rounded-end" type="button" @onclick="(() => this.OnSearch())">
+        <button class="btn btn-outline-primary btn-rounded-end" type="submit" @onclick="(() => this.OnSearch())">
             <span class="oi oi-magnifying-glass" />
         </button>
     </SearchButtonControl>
