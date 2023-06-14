@@ -15,8 +15,8 @@ jobs:
     runs-on: ubuntu-latest
     env:
       DLL_PATH: "${{vars.NAMESPACE}}(net6.0)/bin/Release/net6.0/${{vars.NAMESPACE}}.dll"
-      METAFRM_UPLOADMODULE_URL: "https://download.metafrm.net/github/MetaFrmManagementUploader.zip"
-      METAFRM_UPLOADMODULE_ZIP: "temp/MetaFrmManagementUploader.zip"
+      METAFRM_UPLOADMODULE_URL: "https://download.metafrm.net/github/MetaFrmManagementUploader6.0.zip"
+      METAFRM_UPLOADMODULE_ZIP: "temp/MetaFrmManagementUploader6.0.zip"
       METAFRM_UPLOADMODULE_FILE: "temp/MetaFrmManagementUploader.dll"
 
     steps:
