@@ -8,7 +8,7 @@
 
 <TitleControl Title="@this.GetAttribute("Description")"></TitleControl>
 
-<DataGridControl TItem="PermissionsModel" @ref="this.DataGridControl" DataItems="this.B002ViewModel.SelectResultModel" PagingEnabled="true"
+<DataGridControl TItem="PermissionsModel" @ref="this.DataGridControl" DataItems="this.B002ViewModel.SelectResultModel" PagingEnabled="true" PagingSize="@this.PagingSize"
                  RowAdd="this.New"
                  MovePage="this.Search"
                  RowModify="this.RowModify"

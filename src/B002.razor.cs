@@ -21,10 +21,32 @@ namespace MetaFrm.Management.Razor
         internal DataGridControl<PermissionsModel>? DataGridControl;
 
         internal PermissionsModel SelectItem = new();
+
+        internal int? PagingSize = null;
         #endregion
 
 
         #region Init
+        /// <summary>
+        /// OnInitializedAsync
+        /// </summary>
+        /// <returns></returns>
+        protected override async Task<Task> OnInitializedAsync()
+        {
+            try
+            {
+                if (this.JSRuntime != null)
+                {
+                    System.Drawing.Size browserDimension = await this.JSRuntime.InvokeAsync<System.Drawing.Size>("getDimensions", null);
+                    int? tmp = (browserDimension.Height - 210) / this.DataGridControl.HeaderHeight;
+                    this.PagingSize = tmp < 5 ? 5 : tmp;
+                }
+            }
+            catch (Exception) { }
+
+            return base.OnInitializedAsync();
+        }
+
         /// <summary>
         /// OnAfterRenderAsync
         /// </summary>
