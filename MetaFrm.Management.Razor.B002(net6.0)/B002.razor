@@ -13,11 +13,11 @@
                  MovePage="this.Search"
                  RowModify="this.RowModify"
                  Columns="@(new ColumnDefinitions[] {
-                    new(DbType.Int, SortDirection.Normal, Alignment.Right, nameof(PermissionsModel.RESPONSIBILITY_ID), "Permissions ID", "d-none d-sm-table-cell"),
-                    new(DbType.NVarChar, SortDirection.Ascending, Alignment.NotSet, nameof(PermissionsModel.NAME), "Permissions"),
-                    new(DbType.DateTime, SortDirection.Normal, Alignment.Center, nameof(PermissionsModel.INACTIVE_DATE), "Inactive", "", "", "", "yyyy-MM-dd HH:mm")})">
+                    new(DbType.Int, SortDirection.Normal, Alignment.Right, nameof(PermissionsModel.RESPONSIBILITY_ID), "ID", "d-none d-sm-table-cell"),
+                    new(DbType.NVarChar, SortDirection.Ascending, Alignment.NotSet, nameof(PermissionsModel.NAME), "권한"),
+                    new(DbType.DateTime, SortDirection.Normal, Alignment.Center, nameof(PermissionsModel.INACTIVE_DATE), "비활성", "", "", "", "yyyy-MM-dd HH:mm")})">
     <SearchInputControl>
-        <input type="text" class="form-control rounded-start" placeholder="Search" @bind-value="@this.B002ViewModel.SearchModel.SEARCH_TEXT" @onkeyup="@SearchKeydown" />
+        <input type="text" class="form-control rounded-start" placeholder="@Localization["검색"]" @bind-value="@this.B002ViewModel.SearchModel.SEARCH_TEXT" @onkeyup="@SearchKeydown" />
     </SearchInputControl>
     <SearchButtonControl>
         <button class="btn btn-outline-primary btn-rounded-end" type="submit" @onclick="(() => this.OnSearch())">
@@ -26,31 +26,34 @@
     </SearchButtonControl>
 </DataGridControl>
 
-<ModalControl TItem="PermissionsModel" SelectItem="this.SelectItem" SelectItemKeyProperty="@(nameof(this.SelectItem.RESPONSIBILITY_ID))" HeaderText="@(this.SelectItem == null || this.SelectItem.RESPONSIBILITY_ID == null ? "New" : "Edit")">
+<ModalControl TItem="PermissionsModel" SelectItem="this.SelectItem" SelectItemKeyProperty="@(nameof(this.SelectItem.RESPONSIBILITY_ID))" HeaderText="@(this.SelectItem == null || this.SelectItem.RESPONSIBILITY_ID == null ? "신규" : "수정")">
     <Control>
         <EditForm class="container" Model="@this.SelectItem" OnValidSubmit="this.Save">
             <DataAnnotationsValidator />
 
-            <FieldControl Label="Permissions ID" Value="this.SelectItem.RESPONSIBILITY_ID"></FieldControl>
-            <FieldControl Label="Permissions name" CssClassAppend="py-2 col-md-12">
-                <Control>
-                    <InputText id="permissionsname" class="form-control" placeholder="Permissions name" @bind-Value="this.SelectItem.NAME" />
-                    <ValidationMessage For="@(()=>this.SelectItem.NAME)" />
-                </Control>
-            </FieldControl>
-            <FieldControl Label="Inactive" CssClassControl="row">
-                <Control>
-                    <div class="py-1 col-lg-6">
-                        <InputDate id="inactivedate" class="form-control" placeholder="Inactive Date" Type="InputDateType.Date" @bind-Value="this.SelectItem.INACTIVE_DATE" @bind-Value:format="yyyy-MM-dd" />
-                    </div>
-                    <div class="py-1 col-lg-6">
-                        <InputDate id="inactivetime" class="form-control" placeholder="Inactive Time" Type="InputDateType.Time" @bind-Value="this.SelectItem.INACTIVE_DATE" @bind-Value:format="HH:mm" />
-                    </div>
-                    <ValidationMessage For="@(()=>this.SelectItem.INACTIVE_DATE)" />
-                </Control>
-            </FieldControl>
+            @if (this.SelectItem != null)
+            {
+                <FieldControl Label="ID" Value="this.SelectItem.RESPONSIBILITY_ID"></FieldControl>
+                <FieldControl Label="권한명" CssClassAppend="py-2 col-md-12">
+                    <Control>
+                        <InputText id="permissionsname" class="form-control" placeholder="@Localization["권한명"]" @bind-Value="this.SelectItem.NAME" />
+                        <ValidationMessage For="@(()=>this.SelectItem.NAME)" />
+                    </Control>
+                </FieldControl>
+                <FieldControl Label="비활성" CssClassControl="row">
+                    <Control>
+                        <div class="py-1 col-lg-6">
+                            <InputDate id="inactivedate" class="form-control" placeholder="@Localization["비활성 날짜"]" Type="InputDateType.Date" @bind-Value="this.SelectItem.INACTIVE_DATE" @bind-Value:format="yyyy-MM-dd" />
+                        </div>
+                        <div class="py-1 col-lg-6">
+                            <InputDate id="inactivetime" class="form-control" placeholder="@Localization["비활성 시간"]" Type="InputDateType.Time" @bind-Value="this.SelectItem.INACTIVE_DATE" @bind-Value:format="HH:mm" />
+                        </div>
+                        <ValidationMessage For="@(()=>this.SelectItem.INACTIVE_DATE)" />
+                    </Control>
+                </FieldControl>
 
-            <CommandControl TItem="PermissionsModel" SelectItem="this.SelectItem" SelectItemKeyProperty="@(nameof(this.SelectItem.RESPONSIBILITY_ID))" SaveIsSubmit="true" New="this.New" Copy="this.Copy" Delete="this.Delete" />
+                <CommandControl TItem="PermissionsModel" SelectItem="this.SelectItem" SelectItemKeyProperty="@(nameof(this.SelectItem.RESPONSIBILITY_ID))" SaveIsSubmit="true" New="this.New" Copy="this.Copy" Delete="this.Delete" />
+            }
         </EditForm>
     </Control>
 </ModalControl>

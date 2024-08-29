@@ -16,13 +16,13 @@ namespace MetaFrm.Management.Razor.Models
         /// NAME
         /// </summary>
         [Required]
-        [Display(Name = "Permissions")]
+        [Display(Name = "권한")]
         public string? NAME { get; set; }
 
         /// <summary>
         /// INACTIVE_DATE
         /// </summary>
-        [Display(Name = "Inactive date")]
+        [Display(Name = "비활성")]
         public DateTime? INACTIVE_DATE { get; set; } = DateTime.Now.AddYears(100);
     }
 }
