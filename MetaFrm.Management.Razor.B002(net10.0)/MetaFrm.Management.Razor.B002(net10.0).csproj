@@ -1,17 +1,17 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net10.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <RootNamespace>MetaFrm.Management.Razor</RootNamespace>
     <AssemblyName>MetaFrm.Management.Razor.B002</AssemblyName>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
-    <PackageId>MetaFrm.Management.Razor.B002.net6.0</PackageId>
-    <Version>6.0.3.3</Version>
+    <PackageId>MetaFrm.Management.Razor.B002.net10.0</PackageId>
+    <Version>10.0.0.0</Version>
     <Authors>dsun</Authors>
     <Company>Meta Framework</Company>
-    <Copyright>Copyright 2023. dsun all rights reserved.</Copyright>
+    <Copyright>Copyright 2026. dsun all rights reserved.</Copyright>
     <PackageProjectUrl>https://github.com/MetaFrm/MetaFrm.Management.Razor.B002</PackageProjectUrl>
     <RepositoryUrl>https://github.com/MetaFrm/MetaFrm.Management.Razor.B002</RepositoryUrl>
     <PackageTags>meta;framework;dotnet;maui;</PackageTags>
@@ -47,8 +47,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="MetaFrm.Razor.Essentials.net6.0" Version="6.0.3.30" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.32" />
+    <PackageReference Include="MetaFrm.Razor.Essentials.net10.0" Version="10.0.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="10.0.0" />
   </ItemGroup>
 
   <ItemGroup>
